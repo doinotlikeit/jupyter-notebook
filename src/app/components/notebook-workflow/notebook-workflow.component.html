@@ -1,0 +1,19 @@
+<mat-stepper orientation="vertical" [linear]="true" #stepper>
+  <mat-step [stepControl]="isFirstStepDone" >
+    <ng-template matStepLabel>Start New Kernel</ng-template>
+    <button mat-raised-button color="primary" (click)="startNewSession()">Start</button>
+  </mat-step>
+
+  <mat-step [stepControl]="isSecondStepDone">
+    <ng-template matStepLabel>Run Notebook</ng-template>
+    <button mat-raised-button color="primary" (click)="startNewSession()">Start</button>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>View Result</ng-template>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
