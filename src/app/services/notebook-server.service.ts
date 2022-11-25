@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {NGXLogger} from "ngx-logger";
+import {environment} from "../../environments/environment";
 
 import {
   Kernel, KernelManager, KernelAPI,
@@ -16,10 +17,10 @@ const services = require('@jupyterlab/services');
 @Injectable({
   providedIn: 'root'
 })
-export class JupyterKernelGatewayService {
-  baseUrl = "http://localhost:8000";
-  wsUrl = 'ws://localhost:8000';
-  token = '948e75e9f62e2a3be544562b33c762c3e727d56b446d21c79277bda3fb5d2901';
+export class NotebookServerService {
+  baseUrl = environment.juypterHubBaseUrl;
+  wsUrl = environment.wsUrl;
+  token = environment.authToken
 
   constructor(private logger: NGXLogger) {
   }
@@ -129,14 +130,6 @@ export class JupyterKernelGatewayService {
         return sess.shutdown();
       })
       .then(() => {
-        // console.log('Session shut down');
-        // contents.get('foo.ipynb').then(model => {
-        //   notebookContentJson = model.content;
-        //   this.logger.info(`*** Read contents for results ...`)
-        //   this.logger.info( `*** ${notebookContentJson.cells[0].source}`)
-        //   let output = notebookContentJson.cells[0].outputs[0]
-        //   console.log(`*** Output: ${output.text}`)
-        //});
       })
       .catch((err: any) => {
         console.error(err);

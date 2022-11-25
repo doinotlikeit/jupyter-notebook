@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { JupyterKernelGatewayService } from './jupyter-kernel-gateway.service';
+import { NotebookServerService } from './notebook-server.service';
 
 describe('JupyterKernelGatewayService', () => {
-  let service: JupyterKernelGatewayService;
+  let service: NotebookServerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(JupyterKernelGatewayService);
+    service = TestBed.inject(NotebookServerService);
   });
 
   it('should be created', () => {

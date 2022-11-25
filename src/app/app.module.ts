@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,16 +16,29 @@ import { LandingPageDashboardComponent } from './components/landing-page-dashboa
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { NotebookWorkflowComponent } from './components/notebook-workflow/notebook-workflow.component';
+import { ServerOperationsComponent } from './components/server-peations/server-operations.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
+import {HttpClientModule} from "@angular/common/http";
+import {ErrorDialogComponent} from "./components/error-dialog/error-dialog.component";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatFormFieldModule } from "@angular/material/form-field";
+import {MatTabsModule} from "@angular/material/tabs";
+import { DataOperationsComponent } from './components/data-operations/data-operations/data-operations.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
     LandingPageDashboardComponent,
-    NotebookWorkflowComponent
+    ServerOperationsComponent,
+    ErrorDialogComponent,
+    DataOperationsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +55,16 @@ import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
     MatCardModule,
     MatMenuModule,
     MatStepperModule,
-    LoggerModule.forRoot({ level: NgxLoggerLevel.INFO }),
+    HttpClientModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    LoggerModule.forRoot({level: NgxLoggerLevel.INFO}),
+    MatFormFieldModule,
+    MatTabsModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

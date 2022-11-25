@@ -1,0 +1,10 @@
+<mat-card class="workflow-card">
+  <mat-card-actions id="dataManagementCardContent">
+    <button class="dashboard-button" mat-raised-button color="primary" >Request Data File</button>
+    <button class="dashboard-button" mat-raised-button color="primary" >Process Data File</button>
+    <button class="dashboard-button" mat-raised-button color="primary" >View Results</button>
+  </mat-card-actions>
+  <mat-card-content>
+    <pre>{{serverResponse | json}}</pre>
+  </mat-card-content>
+</mat-card>

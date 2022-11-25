@@ -1,15 +1,28 @@
 <mat-sidenav-container class="sidenav-container">
   <!-- Side Content -->
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
+  <mat-sidenav #drawer class="sidenav" color="primary" fixedInViewport
      [attr.role]="'dialog'"
-      [mode]="'side'"
-      [opened]="false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
+      [mode]="'side'" [(opened)]="opened" (opened)="events.push('open!')"
+               (closed)="events.push('close!')">
+    <mat-toolbar></mat-toolbar>
+<!--    <mat-nav-list>-->
+<!--      <a mat-list-item href="#">Link 1</a>-->
+<!--      <a mat-list-item href="#">Link 2</a>-->
+<!--      <a mat-list-item href="#">Link 3</a>-->
+<!--    </mat-nav-list>-->
+    <h2>Server Operations</h2>
+    <mat-action-list>
+      <button mat-list-item >Save</button>
+      <button mat-list-item >Undo</button>
+    </mat-action-list>
+
+    <mat-divider></mat-divider>
+
+    <h2>Data Operations</h2>
+    <mat-action-list>
+      <button mat-list-item>Save</button>
+      <button mat-list-item>Undo</button>
+    </mat-action-list>
   </mat-sidenav>
 
   <!-- Main Content -->
@@ -23,8 +36,19 @@
         *ngIf="isHandset">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+      <span style="margin: auto">
+        Data Operations - Juypyter Workspace Management
+      </span>
     </mat-toolbar>
     <!-- Add Content Here -->
-    <app-notebook-workflow></app-notebook-workflow>
+    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+      <mat-tab label="Server Operations">
+        <server-operations></server-operations>
+      </mat-tab>
+      <mat-tab label="Data Operations">
+        <data-operations></data-operations>
+      </mat-tab>
+    </mat-tab-group>
+<!--    <app-notebook-workflow></app-notebook-workflow>-->
   </mat-sidenav-content>
 </mat-sidenav-container>

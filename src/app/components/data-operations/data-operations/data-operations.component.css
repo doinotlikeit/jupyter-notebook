@@ -1,0 +1,12 @@
+.workflow-card {
+  margin: 1px;
+  min-height: 90%;
+  width: 100%;
+  /*border: 1px solid blue;*/
+}
+
+.dashboard-button {
+  display: table-cell;
+  margin: auto;
+  width: 25%;
+}

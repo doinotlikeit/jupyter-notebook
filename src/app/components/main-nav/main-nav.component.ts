@@ -17,6 +17,8 @@ export class MainNavComponent {
   //     map(result => result.matches),
   //     shareReplay()
   //   );
+  events: string[] = [];
+  opened: boolean = false;
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
