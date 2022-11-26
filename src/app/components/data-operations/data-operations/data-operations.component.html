@@ -1,10 +1,52 @@
 <mat-card class="workflow-card">
-  <mat-card-actions id="dataManagementCardContent">
-    <button class="dashboard-button" mat-raised-button color="primary" >Request Data File</button>
-    <button class="dashboard-button" mat-raised-button color="primary" >Process Data File</button>
-    <button class="dashboard-button" mat-raised-button color="primary" >View Results</button>
-  </mat-card-actions>
+  <!--  <mat-card-actions id="dataManagementCardContent">-->
+  <!--    <button class="dashboard-button" mat-raised-button color="primary" >Request Data File</button>-->
+  <!--    <button class="dashboard-button" mat-raised-button color="primary"-->
+  <!--     (click)="processDataFile()">-->
+  <!--      Process Data File-->
+  <!--    </button>-->
+  <!--    <button class="dashboard-button" mat-raised-button color="primary" >View Results</button>-->
+  <!--  </mat-card-actions>-->
+
+
   <mat-card-content>
-    <pre>{{serverResponse | json}}</pre>
+    <mat-tab-group (selectedTabChange)="onTabClick($event)" mat-stretch-tabs="false"
+                   mat-align-tabs="start" selectedIndex="1">
+      <mat-tab label="Request Data" (change)="onTabClick($event)">
+      </mat-tab>
+
+      <mat-tab label="Process Data">
+        <mat-card class="workflow-card">
+          <mat-card-content>
+            <div style="margin: auto; text-align: center;">
+              <form [formGroup]="form" (ngSubmit)="onProcessDataFileFormSubmit(form.value)">
+                <mat-form-field class="form-field">
+                  <mat-label>Notebook URL</mat-label>
+                  <input matInput formControlName='notebookUrl' placeholder="Notebook URL">
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                  <mat-label>Param 1</mat-label>
+                  <input matInput formControlName='param1' placeholder="Parameter 1 to pass to the Notebook">
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                  <mat-label>Param 2</mat-label>
+                  <input matInput formControlName='param2' placeholder="Parameter 2 to pass to the Notebook">
+                </mat-form-field>
+                <div>
+                  <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+                </div>
+                <p></p>
+              </form>
+            </div>
+            <mat-divider></mat-divider>
+            <pre>{{serverResponse | json}}</pre>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+
+      <mat-tab label="View Data">
+
+      </mat-tab>
+    </mat-tab-group>
   </mat-card-content>
 </mat-card>

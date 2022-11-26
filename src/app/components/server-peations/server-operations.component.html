@@ -32,7 +32,8 @@
 
   <mat-tab label="Manage Server">
     <mat-toolbar-row *ngIf="userVerified">
-      <button mat-raised-button color="primary" class="dashboard-button" (click)="startServer(verifiedUserId)">
+      <button mat-raised-button color="primary" class="dashboard-button"
+              (click)="startServer(verifiedUserId)" *ngIf="!isServerRunning">
         Start Sever
       </button>
       <button mat-raised-button color="primary" class="dashboard-button"

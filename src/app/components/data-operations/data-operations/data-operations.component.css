@@ -1,6 +1,6 @@
 .workflow-card {
-  margin: 1px;
-  min-height: 90%;
+  margin: auto;
+  height: 100%;
   width: 100%;
   /*border: 1px solid blue;*/
 }
@@ -10,3 +10,19 @@
   margin: auto;
   width: 25%;
 }
+
+.form-field {
+  margin-left: 5%;
+  width: 20%;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+

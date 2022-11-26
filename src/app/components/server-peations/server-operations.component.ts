@@ -8,7 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
-import {SafeResourceUrl, DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'server-operations',
@@ -17,8 +17,6 @@ import {SafeResourceUrl, DomSanitizer} from "@angular/platform-browser";
 })
 export class ServerOperationsComponent implements OnInit {
   userId = new FormControl('foo', [Validators.required]);
-  isSecondStepDone: any;
-  isFirstStepDone: any;
   hubUrl: string = "";
   userVerifiedResponse: any
   serverManagementResponse: any
@@ -46,14 +44,13 @@ export class ServerOperationsComponent implements OnInit {
     });
   }
 
-
   onTabClick(event: any) {
     if (event.index != 0 && !this.userVerified) {
       this.displayPopupMessage("Please validate user first")
       return
     }
     this.labTabUrl = `${environment.juypterHubBaseUrl}/user/${this.verifiedUserId}/lab`
-    this.labUrl= this.sanitizer.bypassSecurityTrustResourceUrl(this.labTabUrl)
+    this.labUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.labTabUrl)
     this.logger.info(`*** Jupyter Hub base url: ${this.hubUrl}, lab: ${this.labTabUrl}`)
   }
 
@@ -72,13 +69,14 @@ export class ServerOperationsComponent implements OnInit {
         this.displayPopupMessage(`User: ${this.verifiedUserId} validated`);
         this.displaySpinner(false);
         this.userVerified = true
+        rsp?.server != null ? this.isServerRunning = true : this.isServerRunning = false
       },
       error: (err: Error) => {
         this.displaySpinner(false)
         let errMsg = `Couldn't validate user: ${this.userId}`
         this.displayErrorMessageDialog(errMsg, JSON.stringify(err.message));
         this.logger.error(errMsg)
-     },
+      },
     })
   }
 

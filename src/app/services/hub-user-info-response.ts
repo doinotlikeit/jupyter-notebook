@@ -9,5 +9,5 @@ export interface HubUserInfoResponse {
   pending: string,
   server: string,
   roles: [],
-  servers: {}
+  servers: []
 }
