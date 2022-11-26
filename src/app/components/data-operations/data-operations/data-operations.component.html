@@ -1,25 +1,15 @@
 <mat-card class="workflow-card">
-  <!--  <mat-card-actions id="dataManagementCardContent">-->
-  <!--    <button class="dashboard-button" mat-raised-button color="primary" >Request Data File</button>-->
-  <!--    <button class="dashboard-button" mat-raised-button color="primary"-->
-  <!--     (click)="processDataFile()">-->
-  <!--      Process Data File-->
-  <!--    </button>-->
-  <!--    <button class="dashboard-button" mat-raised-button color="primary" >View Results</button>-->
-  <!--  </mat-card-actions>-->
-
-
   <mat-card-content>
     <mat-tab-group (selectedTabChange)="onTabClick($event)" mat-stretch-tabs="false"
                    mat-align-tabs="start" selectedIndex="1">
-      <mat-tab label="Request Data" (change)="onTabClick($event)">
+      <mat-tab label="Request Data File To View" (change)="onTabClick($event)">
       </mat-tab>
 
-      <mat-tab label="Process Data">
+      <mat-tab label="Process Data File In Notebook">
         <mat-card class="workflow-card">
           <mat-card-content>
             <div style="margin: auto; text-align: center;">
-              <form [formGroup]="form" (ngSubmit)="onProcessDataFileFormSubmit(form.value)">
+              <form [formGroup]="processFileInputForm" (ngSubmit)="processDataFile(processFileInputForm.value)">
                 <mat-form-field class="form-field">
                   <mat-label>Notebook URL</mat-label>
                   <input matInput formControlName='notebookUrl' placeholder="Notebook URL">
@@ -33,19 +23,42 @@
                   <input matInput formControlName='param2' placeholder="Parameter 2 to pass to the Notebook">
                 </mat-form-field>
                 <div>
-                  <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+                  <button mat-raised-button color="primary" type="submit" [disabled]="!processFileInputForm.valid">
+                    Submit
+                  </button>
                 </div>
                 <p></p>
               </form>
             </div>
             <mat-divider></mat-divider>
-            <pre>{{serverResponse | json}}</pre>
+            <h2>File Processing Response:</h2>
+            <pre>{{fileProcessResponse | json}}</pre>
           </mat-card-content>
         </mat-card>
       </mat-tab>
 
-      <mat-tab label="View Data">
-
+      <mat-tab label="View Results File">
+        <mat-card class="workflow-card">
+          <mat-card-content>
+            <div style="margin: auto; text-align: center;">
+              <form [formGroup]="viewResultFileInputForm" (ngSubmit)="readDataFile(viewResultFileInputForm.value)">
+                <mat-form-field class="form-field">
+                  <mat-label>Output file URL - in the Notebook</mat-label>
+                  <input matInput formControlName='outputFileUrl' placeholder="Notebook result">
+                </mat-form-field>
+                <div>
+                  <button mat-raised-button color="primary" type="submit" [disabled]="!processFileInputForm.valid">
+                    Submit
+                  </button>
+                </div>
+                <p></p>
+              </form>
+            </div>
+          </mat-card-content>
+          <mat-divider></mat-divider>
+          <h2>Processed Output File: [{{outputFileUrl}}] content:</h2>
+          <pre>{{fileViewResponse}}</pre>
+        </mat-card>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

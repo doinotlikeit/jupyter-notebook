@@ -11,10 +11,13 @@ import {environment} from "../../../../environments/environment";
   templateUrl: './data-operations.component.html',
   styleUrls: ['./data-operations.component.css']
 })
-export class DataOperationsComponent implements  OnInit {
-  serverResponse: string = "";
+export class DataOperationsComponent implements OnInit {
+  fileProcessResponse: string = "";
+  fileViewResponse: string = "";
   displayWait: boolean = false;
-  form: any;
+  processFileInputForm: any;
+  viewResultFileInputForm: any;
+  outputFileUrl: any
 
   constructor(private logger: NGXLogger,
               private notebookServerService: NotebookServerService,
@@ -24,27 +27,44 @@ export class DataOperationsComponent implements  OnInit {
   }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+    this.processFileInputForm = this.formBuilder.group({
       notebookUrl: [environment.notebookUrl],
       param1: [environment.arg1],
       param2: [environment.arg2]
     });
+    this.viewResultFileInputForm = this.formBuilder.group( {
+      outputFileUrl: [environment.outputFileUrl]
+    })
   }
 
   onTabClick(event: any) {
   }
 
-  onProcessDataFileFormSubmit(form: any) {
-    this.processDataFile(form)
+  async processDataFile(form: any) {
+    try {
+
+      console.log("****************** before")
+      this.fileProcessResponse = await this.notebookServerService.executeNotebook(
+        form.notebookUrl, form.param1, form.param2)
+      console.log("*** Process data file response: " + this.fileProcessResponse)
+      console.log("******************* after ")
+
+    } catch (err: any) {
+      this.logger.error(`*** Error processing data file: ${form.notebookUrl};
+      error: ${err.message}`)
+    }
   }
 
-  processDataFile(form: any ) {
+  async readDataFile(form: any) {
     try {
-      this.notebookServerService.executeNotebook(form.notebookUrl, form.param1, form.param2)
-      // this.labTabUrl = `${environment.juypterHubBaseUrl}/user/${this.verifiedUserId}/lab`
-      // this.logger.info(`*** Jupyter Hub base url: ${this.hubUrl}, lab: ${this.labTabUrl}`)
-    } catch (err:any ) {
-     this.logger.error("*******************" + err.message)
+
+      this.outputFileUrl = form.outputFileUrl
+      this.fileViewResponse = await this.notebookServerService.readFileContent(form.outputFileUrl)
+      console.log("*** Read data file response: " + this.fileViewResponse)
+
+    } catch (err: any) {
+      this.logger.error(`*** Error reading result file: ${form.outputFileUrl};
+      error: ${err.message}`)
     }
   }
 
